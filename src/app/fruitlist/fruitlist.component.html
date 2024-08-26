@@ -8,20 +8,20 @@
                 <h2> {{fruit.name}}</h2>
                 <div>
                     <p><b>Bewertung:</b></p>
-                    <div>
-
-                        @for(count of [1,2,3,4,5]; track fruitlist) {
-
-                            @if(fruit.stars >= count) {
-                                <img src="./assets/img/stars/star.svg" alt="" srcset="">
-                            }@else if(fruit.stars >= count -0.5) {
-                                <img src="./assets/img/stars/star-half.svg" alt="" srcset="">
-                            }@else() {
-                                <img src="./assets/img/stars/star-empty.svg" alt="" srcset="">
-                            }
-                        }
-                        <p>({{fruit.stars}})</p>
-                    </div>
+                        <div *ngFor="let count of [1, 2, 3, 4, 5]">
+                            <ng-container *ngIf="fruit.stars >= count; else halfOrEmpty">
+                                <img src="./../../assets/img/stars/star.svg" alt="Full star">
+                            </ng-container>
+                            <ng-template #halfOrEmpty>
+                                <ng-container *ngIf="fruit.stars >= count - 0.5; else emptyStar">
+                                    <img src="./../../assets/img/stars/star-half.svg" alt="Half star">
+                                </ng-container>
+                            </ng-template>
+                            <ng-template #emptyStar>
+                                <img src="./../../assets/img/stars/star-empty.svg" alt="Empty star">
+                            </ng-template>
+                        </div>
+                        <p>({{fruit.stars}})</p>            
                 </div>
                 <div><b>Art:</b><br>{{fruit.genus}}</div>
                 <div><b>Beschreibung:</b><br>{{fruit.description}}</div>
