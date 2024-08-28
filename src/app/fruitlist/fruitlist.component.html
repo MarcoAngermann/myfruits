@@ -1,38 +1,45 @@
 <div class="fruitlist_content">
-    @for(fruit of fruitlist; track fruit){
+    @for(fruit of fruitlist; track fruit.name){
         <section class="singleFruitBox">
             <div>
-                    <img src="./assets/img/fruits/{{fruit.img}}" alt="" srcset="">
+                <img src="./assets/img/fruits/{{fruit.img}}" alt="" srcset="">
             </div>
             <div>
                 <h2> {{fruit.name}}</h2>
                 <div>
                     <p><b>Bewertung:</b></p>
-                        <div *ngFor="let count of [1, 2, 3, 4, 5]">
-                            <ng-container *ngIf="fruit.stars >= count; else halfOrEmpty">
-                                <img src="./../../assets/img/stars/star.svg" alt="Full star">
+                    <div>
+                        @for(count of [1, 2, 3, 4, 5]; track fruitlist){
+                            @if (fruit.stars >= count) {
+                                <img src="./assets/img/stars/star.svg" alt="Full star" srcset="">
+                            }
+                         @else if (fruit.stars >= count - 0.5) {
+                            <img src="./assets/img/stars/star-half.svg" alt="Half star" srcset="">
+                        } @else {
+                            <img src="./assets/img/stars/star-empty.svg" alt="Empty star" srcset="">
+                        }
+                        }
+                        <!-- <div *ngFor="let count of [1, 2, 3, 4, 5]">
+                            <ng-container [ngSwitch]="getStarType(fruit.stars, count)">
+                              <img *ngSwitchCase="'full'" src="./assets/img/stars/star.svg" alt="Full star" />
+                              <img *ngSwitchCase="'half'" src="./assets/img/stars/star-half.svg" alt="Half star" />
+                              <img *ngSwitchDefault src="./assets/img/stars/star-empty.svg" alt="Empty star" />
                             </ng-container>
-                            <ng-template #halfOrEmpty>
-                                <ng-container *ngIf="fruit.stars >= count - 0.5; else emptyStar">
-                                    <img src="./../../assets/img/stars/star-half.svg" alt="Half star">
-                                </ng-container>
-                            </ng-template>
-                            <ng-template #emptyStar>
-                                <img src="./../../assets/img/stars/star-empty.svg" alt="Empty star">
-                            </ng-template>
-                        </div>
-                        <p>({{fruit.stars}})</p>            
+                          </div> -->
+                          
+                        <p>({{fruit.stars}})</p>
+                    </div>
                 </div>
                 <div><b>Art:</b><br>{{fruit.genus}}</div>
                 <div><b>Beschreibung:</b><br>{{fruit.description}}</div>
                 <div>
                     <div>
-                        @for(review of fruit.reviews; track review){ 
-                            <div><b>{{review.name}}:</b><br>{{review.text}}</div> 
-                        } @empty {
-                            no comments
+                        @for(review of fruit.reviews; track review){
+                            <div><b>{{review.name}}:</b><br>{{review.text}}</div>
+                        }@empty {
+                            <div>Keine Kommentare vorhanden</div>
                         }
-                        
+                           
                     </div>
                     <div><input type="text"><button><img src="./assets/img/arrow-35-32.png" alt="" srcset=""></button>
                     </div>
