@@ -16,17 +16,9 @@
                 } @else {
                     <img src="./assets/img/stars/star-empty.svg" alt="Empty star" srcset="">
                 }
+
                 }
-                <!-- <div *ngFor="let count of [1, 2, 3, 4, 5]">
-                    <ng-container [ngSwitch]="getStarType(fruit.stars, count)">
-                      <img *ngSwitchCase="'full'" src="./assets/img/stars/star.svg" alt="Full star" />
-                      <img *ngSwitchCase="'half'" src="./assets/img/stars/star-half.svg" alt="Half star" />
-                      <img *ngSwitchDefault src="./assets/img/stars/star-empty.svg" alt="Empty star" />
-                    </ng-container>
-                  </div> -->
-                  
                 <p>({{fruit.stars}})</p>
-                <!-- [ngClass]="{'fontColorBad': fruit.stars < 3, 'fontColorGood': fruit.stars >= 3}" -->
             </div>
         </div>
         <div><b>Art:</b><br>{{fruit.genus}}</div>
@@ -40,7 +32,7 @@
                 }
                    
             </div>
-            <div><input type="text"><button><img src="./assets/img/arrow-35-32.png" alt="" srcset=""></button>
+            <div><input [(ngModel)]="inputData" type="text"><button><img (click)="sendInputData()" src="./assets/img/arrow-35-32.png" alt="" srcset=""></button>
             </div>
         </div>
     </div>
